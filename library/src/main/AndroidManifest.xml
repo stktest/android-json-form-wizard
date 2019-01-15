@@ -2,4 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vijay.jsonwizard" >
 
+    <application>
+
+        <provider
+            android:name=".utils.ImagePickerProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+    </application>
+
 </manifest>
