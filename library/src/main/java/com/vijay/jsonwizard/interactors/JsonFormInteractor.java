@@ -81,20 +81,36 @@ public class JsonFormInteractor {
             JsonExpressionResolver resolver) {
 
         final String showExpression = jsonObject.optString("show");
-        if (TextUtils.isEmpty(showExpression)) {
-            return true;
-        }
-        if (resolver.isValidExpression(showExpression)) {
-            try {
-                JSONObject currentValues = getCurrentValues(context);
-                return resolver.existsExpression(showExpression, currentValues);
-            } catch (JSONException e) {
-                Log.e(TAG, "isVisible: Error evaluating expression " + showExpression, e);
+        if (!TextUtils.isEmpty(showExpression)) {
+            if (resolver.isValidExpression(showExpression)) {
+                try {
+                    JSONObject currentValues = getCurrentValues(context);
+                    return resolver.existsExpression(showExpression, currentValues);
+                } catch (JSONException e) {
+                    Log.e(TAG, "isVisible: Error evaluating expression " + showExpression, e);
+                }
+                return false;
             }
-            return false;
+
+            return ("true".equalsIgnoreCase(showExpression));
         }
 
-        return ("true".equalsIgnoreCase(showExpression));
+        final String hideExpression = jsonObject.optString("hide");
+        if (!TextUtils.isEmpty(hideExpression)) {
+            if (resolver.isValidExpression(hideExpression)) {
+                try {
+                    JSONObject currentValues = getCurrentValues(context);
+                    return !resolver.existsExpression(hideExpression, currentValues);
+                } catch (JSONException e) {
+                    Log.e(TAG, "isVisible: Error evaluating expression " + showExpression, e);
+                }
+                return true;
+            }
+
+            return !("true".equalsIgnoreCase(hideExpression));
+        }
+
+        return true;
     }
 
     @Nullable
