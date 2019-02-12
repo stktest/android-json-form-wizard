@@ -243,6 +243,9 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         }else{
             rotation = this.getWindowManager().getDefaultDisplay().getRotation();
         }
+        Log.d("TEST", "LIB ===>  ORIENTATION => "+getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, currentOrientation));
+        Log.d("TEST", "LIB ===>  ROTATION => "+getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, rotation));
+        Log.d("TEST", "LIB ===>  CURRENT ORIENTATION => "+currentOrientation);
         if (hasOrientationExtra) {
             int orientation = getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, currentOrientation);
             if (JsonFormConstants.ORIENTATION_LANDSCAPE == orientation) {
