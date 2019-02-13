@@ -67,12 +67,12 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         configureInputMethod();
-        configureOrientation();
-        if(firstTime){
-            firstTime = false;
+
+
             initialize();
             createFragments(null);
-        }
+
+        configureOrientation();
 
 
     }
