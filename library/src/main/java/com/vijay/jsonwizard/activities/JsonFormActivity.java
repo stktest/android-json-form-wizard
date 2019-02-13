@@ -66,10 +66,11 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         configureInputMethod();
-        configureOrientation();
-
+        boolean buildInit = configureOrientation();
+        if(buildInit){
             initialize();
-            createFragments(null);
+            createFragments(null);}
+
 
     }
 
@@ -233,7 +234,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         }
     }
 
-    private void configureOrientation() {
+    private boolean configureOrientation() {
         Intent intent = getIntent();
         boolean buildInit = true;
         int rotation;
@@ -267,6 +268,6 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
             getIntent().removeExtra(JsonFormConstants.CURRENT_ORIENTATION_EXTRA);
         }
         Log.d("TEST", "LIB3 ===>  BUILDINIT => "+buildInit);
-        //return buildInit;
+        return buildInit;
     }
 }
