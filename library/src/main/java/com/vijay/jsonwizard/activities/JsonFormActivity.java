@@ -69,9 +69,9 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         configureInputMethod();
         configureOrientation();
         if(firstTime){
+            firstTime = false;
             initialize();
             createFragments(null);
-            firstTime = false;
         }
 
 
