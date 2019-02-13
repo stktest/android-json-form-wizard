@@ -39,6 +39,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     private JsonExpressionResolver mResolver;
     private ExternalContentResolver mContentResolver;
     private String externalContentResolverClass;
+    private boolean firstTime = true;
 
     public void init(String json, Integer visualizationMode, String externalContentResolverClass) {
         this.externalContentResolverClass = externalContentResolverClass;
@@ -66,10 +67,11 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         configureInputMethod();
-        boolean buildInit = configureOrientation();
-        if(buildInit){
+        configureOrientation();
+        if(firstTime){
             initialize();
             createFragments(null);
+            firstTime = false;
         }
 
 
@@ -235,7 +237,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         }
     }
 
-    private boolean configureOrientation() {
+    private void configureOrientation() {
         Intent intent = getIntent();
         boolean buildInit = true;
         int rotation;
@@ -252,10 +254,8 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         Log.d("TEST", "LIB4 ===>  ROTATION EXTRA=> "+rotation);
         Log.d("TEST", "LIB4 ===>  CURRENT ORIENTATION => "+currentOrientation);
         if (hasOrientationExtra) {
-
             int orientation = getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, currentOrientation);
             Log.d("TEST", "LIB4 ===>  HACE EL BUILD INIT");
-            buildInit = currentOrientation == orientation;
             if (JsonFormConstants.ORIENTATION_LANDSCAPE == orientation) {
                 if (rotation == Surface.ROTATION_90) {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -266,9 +266,9 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
             getIntent().removeExtra(JsonFormConstants.ORIENTATION_EXTRA);
-            getIntent().removeExtra(JsonFormConstants.CURRENT_ORIENTATION_EXTRA);
+//            getIntent().removeExtra(JsonFormConstants.CURRENT_ORIENTATION_EXTRA);
         }
         Log.d("TEST", "LIB4 ===>  BUILDINIT => "+buildInit);
-        return !hasCurrentOrientationExtra;
+
     }
 }
