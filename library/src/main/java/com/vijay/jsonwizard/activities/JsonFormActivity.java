@@ -69,7 +69,8 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         boolean buildInit = configureOrientation();
         if(buildInit){
             initialize();
-            createFragments(null);}
+            createFragments(null);
+        }
 
 
     }
@@ -268,6 +269,6 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
             getIntent().removeExtra(JsonFormConstants.CURRENT_ORIENTATION_EXTRA);
         }
         Log.d("TEST", "LIB4 ===>  BUILDINIT => "+buildInit);
-        return hasCurrentOrientationExtra;
+        return !hasCurrentOrientationExtra;
     }
 }
