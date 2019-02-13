@@ -67,8 +67,10 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         super.onCreate(savedInstanceState);
         configureInputMethod();
         configureOrientation();
-        initialize();
-        createFragments(null);
+
+            initialize();
+            createFragments(null);
+
     }
 
     protected void initialize() {
@@ -233,6 +235,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
     private void configureOrientation() {
         Intent intent = getIntent();
+        boolean buildInit = true;
         int rotation;
         boolean hasOrientationExtra = intent.hasExtra(JsonFormConstants.ORIENTATION_EXTRA);
         boolean hasCurrentOrientationExtra = intent.hasExtra(JsonFormConstants.CURRENT_ORIENTATION_EXTRA);
@@ -243,11 +246,14 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         }else{
             rotation = this.getWindowManager().getDefaultDisplay().getRotation();
         }
-        Log.d("TEST", "LIB2 ===>  ORIENTATION => "+getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, currentOrientation));
-        Log.d("TEST", "LIB2 ===>  ROTATION => "+getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, rotation));
-        Log.d("TEST", "LIB2 ===>  CURRENT ORIENTATION => "+currentOrientation);
+        Log.d("TEST", "LIB3 ===>  ORIENTATION EXTRA=> "+getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, currentOrientation));
+        Log.d("TEST", "LIB3 ===>  ROTATION EXTRA=> "+rotation);
+        Log.d("TEST", "LIB3 ===>  CURRENT ORIENTATION => "+currentOrientation);
         if (hasOrientationExtra) {
+
             int orientation = getIntent().getIntExtra(JsonFormConstants.ORIENTATION_EXTRA, currentOrientation);
+            Log.d("TEST", "LIB3 ===>  HACE EL BUILD INIT");
+            buildInit = orientation == rotation;
             if (JsonFormConstants.ORIENTATION_LANDSCAPE == orientation) {
                 if (rotation == Surface.ROTATION_90) {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -260,5 +266,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
             getIntent().removeExtra(JsonFormConstants.ORIENTATION_EXTRA);
             getIntent().removeExtra(JsonFormConstants.CURRENT_ORIENTATION_EXTRA);
         }
+        Log.d("TEST", "LIB3 ===>  BUILDINIT => "+buildInit);
+        //return buildInit;
     }
 }
